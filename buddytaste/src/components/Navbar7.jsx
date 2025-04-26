@@ -6,7 +6,7 @@ export function Navbar7() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full border-b-2 border-black bg-white px-6 py-6 font-bold uppercase text-sm tracking-wide">
+    <nav className="w-full px-6 py-6 font-bold text-sm tracking-wide">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         
         {/* Logo + Brand Name */}
