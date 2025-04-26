@@ -22,7 +22,7 @@ export function Product10() {
     "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=500&h=600&q=80";
 
   return (
-    <section className="px-[5%] py-20 bg-white text-black font-mono uppercase border-t-4 border-b-4 border-black">
+    <section className="px-[5%] py-20 bg-white text-black font-mono border-t-4 border-b-4 border-black">
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <div className="mb-20 text-center">
@@ -51,8 +51,11 @@ export function Product10() {
 
               {/* Title + Genre */}
               <div className="flex flex-col gap-2 text-center mt-auto">
-                <h3 className="text-lg font-bold">{movie.Movie}</h3>
-                <p className="text-sm">{movie.PrimaryGenre}</p>
+                <h3 className="text-3xl font-bold">{movie.Movie} ({movie.Year})</h3>
+                <p className="text-sm">{movie.PrimaryGenre} / {movie.SecondaryGenre}</p>
+                <p className="text-sm">Date Watched: {movie.Date}</p>
+                <p>Picked by: {movie.Picked}</p>
+                <p className="text-xl font-bold">Average Rating: {movie.AverageRating}</p>
               </div>
             </div>
           ))}
