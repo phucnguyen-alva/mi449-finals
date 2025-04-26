@@ -40,10 +40,7 @@ export function Header33() {
           loop
           muted
         >
-          <source
-            src="https://d22po4pjz3o32e.cloudfront.net/placeholder-video.mp4"
-            type="video/mp4"
-          />
+          <source src="/src/assets/intro.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/50" />
       </div>
