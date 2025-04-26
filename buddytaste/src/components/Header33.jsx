@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 export function Header33() {
   return (
     <section id="relume" className="relative px-[5%]">
-      <div className="relative z-10 container max-w-4xl">
+      <div className="relative z-10 container max-w-lg">
         <div className="flex max-h-[60rem] min-h-svh items-center pt-32 pb-16 md:pt-48 md:pb-24 lg:pt-56 lg:pb-28">
           {/* FLEX COLUMN TO STACK TEXT + BUTTONS */}
           <div className="flex flex-col items-center text-center">
             <h1 className="mb-6 text-6xl font-bold text-white drop-shadow-lg md:mb-10 md:text-9xl lg:text-10xl">
               Discover Movies Through Your Friends' Eyes
             </h1>
-            <p className="text-white/90 md:text-md drop-shadow mb-6 max-w-xl mx-auto">
+            <p className="text-white/90 md:text-md drop-shadow mb-6">
               Dive into a world of social cinematic experiences with BuddyTaste.
             </p>
             <div className="flex items-center justify-center gap-x-4">
