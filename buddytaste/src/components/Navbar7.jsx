@@ -6,11 +6,11 @@ export function Navbar7() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full border-b-4 border-black bg-white px-6 py-4 font-bold uppercase text-sm tracking-wide">
+    <nav className="w-full border-b-2 border-black bg-white px-6 py-6 font-bold uppercase text-sm tracking-wide">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         
         {/* Logo + Brand Name */}
-        <Link to="/" className="logo-wrapper flex items-center gap-4 border-2 border-black px-3 py-2 hover:bg-black hover:text-white transition-all">
+        <Link to="/" className="logo-wrapper flex items-center gap-4 px-3 py-2 transition-all">
           {/* ⬆️ gap-4 here (was gap-2 before) */}
           <img src={logo} alt="BuddyTaste Logo" className="logo-image" />
           <span className="text-base md:text-lg">BuddyTaste</span>
