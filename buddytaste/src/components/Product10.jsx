@@ -19,7 +19,7 @@ export function Product10() {
   }, []);
 
   const sharedImage =
-    "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=500&h=600&q=80";
+    "https://a.ltrbxd.com/resized/film-poster/1/1/1/6/6/0/0/1116600-sinners-2025-0-1000-0-1500-crop.jpg?v=00ce32e0ba";
 
   return (
     <section className="px-[5%] py-20 bg-white text-black font-mono border-t-4 border-b-4 border-black">
@@ -43,7 +43,7 @@ export function Product10() {
               {/* Image with margin */}
               <div className="mb-6 border-4 border-black p-2 bg-white">
                 <img
-                  src={sharedImage}
+                  src={movie.Image}
                   alt={movie.Movie}
                   className="w-full h-[300px] object-cover"
                 />
