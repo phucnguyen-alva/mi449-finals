@@ -7,17 +7,15 @@ export function Header33() {
   return (
     <section id="relume" className="relative px-[5%]">
       <div className="relative z-10 container max-w-lg">
-        <div className="flex max-h-[60rem] min-h-svh items-center py-16 md:py-24 lg:py-28">
+        <div className="flex max-h-[60rem] min-h-svh items-center pt-32 pb-16 md:pt-48 md:pb-24 lg:pt-56 lg:pb-28">
           <div className="text-center">
-            <h1 className="mb-5 text-6xl font-bold text-text-alternative md:mb-6 md:text-9xl lg:text-10xl">
+            <h1 className="mb-10 text-6xl font-bold text-white drop-shadow-lg md:mb-14 md:text-9xl lg:text-10xl">
               Discover Movies Through Your Friends' Eyes
             </h1>
-            <p className="text-text-alternative md:text-md">
+            <p className="mt-8 text-white/90 md:text-md drop-shadow">
               Dive into a world of social cinematic experiences with BuddyTaste.
             </p>
-
-            {/* Only Buttons changed here */}
-            <div className="mt-6 flex items-center justify-center gap-x-4 md:mt-8">
+            <div className="mt-12 flex items-center justify-center gap-x-4 md:mt-16">
               <Link to="/movie-details">
                 <button className="px-6 py-3 border-4 border-black bg-white text-black font-bold uppercase text-sm hover:bg-black hover:text-white transition-all">
                   Explore Friend's Review
@@ -29,12 +27,10 @@ export function Header33() {
                 </button>
               </Link>
             </div>
-
           </div>
         </div>
       </div>
-
-      {/* Keep your video background exactly the same */}
+      {/* Video background and overlay */}
       <div className="absolute inset-0 z-0">
         <video
           className="absolute inset-0 aspect-video size-full object-cover"
