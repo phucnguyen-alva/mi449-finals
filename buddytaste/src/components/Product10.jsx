@@ -1,8 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getMovieData } from '/src/supabaseClient.js';
 
 export function Product10() {
+
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMovieData();
+      if (data) {
+        setMovies(data);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const sharedImage =
     "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=500&h=600&q=80";
 
@@ -18,40 +33,26 @@ export function Product10() {
 
         {/* Brutalist Movie Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {[
-            { title: "Hoodwinked", genre: "Family / Animation" },
-            { title: "Monkey Man", genre: "Thriller / Action" },
-            { title: "Hundreds of Beavers", genre: "Adventure / Comedy" },
-            { title: "Wild Wild Punjab", genre: "Comedy / Adventure" },
-            { title: "Hercules", genre: "Animation / Adventure" },
-            { title: "The Cat Returns", genre: "Adventure / Fantasy" },
-            { title: "R.I.P.D.", genre: "Comedy / Action" },
-            { title: "Belly", genre: "Drama / Crime" },
-            { title: "Hulk Vs. Thor", genre: "Action / Fantasy" },
-            { title: "Hulk Vs. Wolverine", genre: "Action / Fantasy" },
-            { title: "My Babysitter's a Vampire", genre: "TV Movie / Fantasy" },
-            { title: "Sonic the Hedgehog", genre: "Science Fiction / Action" },
-            { title: "The Holy Mountain", genre: "Drama" },
-            { title: "Rumours", genre: "Comedy / Horror" },
-            { title: "Persepolis", genre: "Animation / Drama" },
-          ].map((movie, idx) => (
+          {
+            movies
+          .map((movie) => (
             <div
-              key={idx}
+              key={movie.id}
               className="flex flex-col border-4 border-black p-6 bg-white hover:bg-black hover:text-white transition-all"
             >
               {/* Image with margin */}
               <div className="mb-6 border-4 border-black p-2 bg-white">
                 <img
                   src={sharedImage}
-                  alt={movie.title}
+                  alt={movie.Movie}
                   className="w-full h-[300px] object-cover"
                 />
               </div>
 
               {/* Title + Genre */}
               <div className="flex flex-col gap-2 text-center mt-auto">
-                <h3 className="text-lg font-bold">{movie.title}</h3>
-                <p className="text-sm">{movie.genre}</p>
+                <h3 className="text-lg font-bold">{movie.Movie}</h3>
+                <p className="text-sm">{movie.PrimaryGenre}</p>
               </div>
             </div>
           ))}
