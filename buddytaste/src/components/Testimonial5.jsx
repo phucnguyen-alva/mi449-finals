@@ -20,7 +20,7 @@ export function Testimonial5() {
 
         {/* Reviews */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {[
+          {[ 
             {
               quote: "BuddyTaste transformed my movie nights! I love seeing my friends' thoughts on films.",
               name: "Alice Johnson",
@@ -55,7 +55,7 @@ export function Testimonial5() {
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-16 h-16 rounded-full border-2 border-black"
+                  className="w-16 aspect-square object-cover rounded-full border-2 border-black"
                 />
                 <h3 className="text-3xl font-extrabold text-blue-700">{testimonial.name}</h3>
                 <p className="text-sm">{testimonial.role}</p>

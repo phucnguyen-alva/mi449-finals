@@ -11,21 +11,29 @@ export function Product10() {
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <div className="mb-20 text-center">
-          <h2 className="text-2xl font-bold mb-8">
+          <h2 className="text-5xl font-bold mb-8">
             What's your buddy been watching?
           </h2>
-
         </div>
 
         {/* Brutalist Movie Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {[
-            { title: "Inception", genre: "Sci-Fi / Thriller" },
-            { title: "Interstellar", genre: "Sci-Fi / Drama" },
-            { title: "Everything Everywhere All At Once", genre: "Action / Comedy / Sci-Fi" },
-            { title: "Whiplash", genre: "Drama / Music" },
-            { title: "Parasite", genre: "Thriller / Drama" },
-            { title: "The Grand Budapest Hotel", genre: "Comedy / Crime / Drama" },
+            { title: "Hoodwinked", genre: "Family / Animation" },
+            { title: "Monkey Man", genre: "Thriller / Action" },
+            { title: "Hundreds of Beavers", genre: "Adventure / Comedy" },
+            { title: "Wild Wild Punjab", genre: "Comedy / Adventure" },
+            { title: "Hercules", genre: "Animation / Adventure" },
+            { title: "The Cat Returns", genre: "Adventure / Fantasy" },
+            { title: "R.I.P.D.", genre: "Comedy / Action" },
+            { title: "Belly", genre: "Drama / Crime" },
+            { title: "Hulk Vs. Thor", genre: "Action / Fantasy" },
+            { title: "Hulk Vs. Wolverine", genre: "Action / Fantasy" },
+            { title: "My Babysitter's a Vampire", genre: "TV Movie / Fantasy" },
+            { title: "Sonic the Hedgehog", genre: "Science Fiction / Action" },
+            { title: "The Holy Mountain", genre: "Drama" },
+            { title: "Rumours", genre: "Comedy / Horror" },
+            { title: "Persepolis", genre: "Animation / Drama" },
           ].map((movie, idx) => (
             <div
               key={idx}
