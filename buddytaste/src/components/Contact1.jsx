@@ -17,7 +17,7 @@ export function Contact1() {
 
   // Sample data for suggestions
   const sampleFriends = [
-    "ratgaming","gwenlikesfilm", "timtamtitus", "elisavetkei", "cinemawithcathy", "justinlovescinema",
+    "ratgaming", "thatmemecrona","gwenlikesfilm", "timtamtitus", "elisavetkei", "cinemawithcathy", "justinlovescinema",
     "kevinofthewoods", "filmjunkiejules", "sofiescreens", "movieman_tom", "laurenslens",
     "reelchris", "popcornnights", "cinemadreamz", "aniyaflicks", "litlenslucy"
   ];
