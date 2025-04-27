@@ -1,7 +1,12 @@
+function splitFriends(allFriends){
+    return allFriends.split(", ");
+}
 
-export async function getData(movie, friend) {
+
+export async function getData(movie, friends) {
     const url = "https://f4ckavlbp6.execute-api.us-east-2.amazonaws.com/movies";
     let message = 'Failed'
+    let friendsList = splitFriends(friends);
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -10,9 +15,7 @@ export async function getData(movie, friend) {
         },
         body: JSON.stringify({ 
           movie_name: movie,
-          users: [
-            friend
-          ]
+          users: friendsList
         })
       });
       if (!response.ok) {

@@ -74,7 +74,8 @@ export function Contact1() {
           {/* Friend Name */}
           <div className="flex flex-col gap-2">
             <label htmlFor="friend" className="text-sm font-bold">
-              Friend's Name
+              Friends Names
+              <p className="text-xs">(Seperate with commas or spaces)</p>
             </label>
             <input
               id="friend"
@@ -82,7 +83,7 @@ export function Contact1() {
               type="text"
               value={formData.friend}
               onChange={handleChange}
-              placeholder="Enter your friend's name..."
+              placeholder="Enter Letterboxd usernames..."
               required
               className="border-4 border-black p-3 font-mono text-sm bg-white focus:outline-none"
             />
