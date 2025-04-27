@@ -1,5 +1,5 @@
 
-export async function getData() {
+export async function getData(movie, friend) {
     const url = "https://f4ckavlbp6.execute-api.us-east-2.amazonaws.com/movies";
     let message = 'Failed'
     try {
@@ -9,9 +9,9 @@ export async function getData() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 
-          movie_name: 'Coradawwdne' ,
+          movie_name: movie,
           users: [
-            'treemang', 'thatmemecrona', 'ratgaming'
+            friend
           ]
         })
       });
@@ -20,12 +20,11 @@ export async function getData() {
       }
   
       const jsonString = await response.json();
-      console.log(jsonString);
       if(!jsonString.statusCode){ 
-        message = jsonString.movie + '\n' + jsonString.year + '\n' + jsonString.runtime;
+        message = jsonString;
       }
       else{
-        message = jsonString.body;
+        message = null;
       }
     } catch (error) {
       console.error(error.message);

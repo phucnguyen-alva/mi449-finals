@@ -1,33 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { getData } from "../lambdaAPI";
 
-const mockDatabase = [
-  {
-    movie: "Inception",
-    friend: "Alice",
-    rating: 5,
-    comment: "Mind-bending! Best movie ever.",
-  },
-  {
-    movie: "Inception",
-    friend: "Bob",
-    rating: 4,
-    comment: "Amazing visuals and concept.",
-  },
-  {
-    movie: "Interstellar",
-    friend: "Charlie",
-    rating: 5,
-    comment: "Emotional, beautiful, unforgettable.",
-  },
-  {
-    movie: "Parasite",
-    friend: "Dana",
-    rating: 5,
-    comment: "Thrilling and meaningful.",
-  },
-];
+
 
 export function Contact1() {
   const [formData, setFormData] = useState({
@@ -45,15 +21,19 @@ export function Contact1() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
 
-    const foundReview = mockDatabase.find(
-      (entry) =>
-        entry.movie.toLowerCase() === formData.movie.toLowerCase() &&
-        entry.friend.toLowerCase() === formData.friend.toLowerCase()
-    );
-
-    setResult(foundReview || { notFound: true });
+    const fetchData = async () => {
+          const data = await getData(formData.movie, formData.friend.toLowerCase());
+          if (data) {
+            console.log(data);
+            setResult(data);
+          }
+          else{
+            setResult({notFound: true });
+          }
+        };
+    
+      fetchData();
   };
 
   return (
@@ -73,24 +53,18 @@ export function Contact1() {
           {/* Movie Selector */}
           <div className="flex flex-col gap-2">
             <label htmlFor="movie" className="text-sm font-bold">
-              Select Movie
+              Select Movie 
+              <p>(Add the year it came out if there are movies with the same name)</p>
             </label>
-            <select
+           <input 
               id="movie"
               name="movie"
-              value={formData.movie}
+              type="text"
               onChange={handleChange}
+              placeholder="Enter a movie name..."
               required
-              className="border-4 border-black p-3 font-mono text-sm bg-white focus:outline-none"
-            >
-              <option value="">-- Choose a Movie --</option>
-              <option value="Inception">Inception</option>
-              <option value="Interstellar">Interstellar</option>
-              <option value="Everything Everywhere All At Once">Everything Everywhere All At Once</option>
-              <option value="Whiplash">Whiplash</option>
-              <option value="Parasite">Parasite</option>
-              <option value="The Grand Budapest Hotel">The Grand Budapest Hotel</option>
-            </select>
+              className="border-4 border-black p-3 font-mono text-sm bg-white focus:outline-none">
+           </input>
           </div>
 
           {/* Friend Name */}
@@ -131,9 +105,9 @@ export function Contact1() {
             ) : (
               <div className="text-center">
                 <h3 className="text-2xl font-bold mb-4">{result.movie}</h3>
-                <p className="mb-2">Friend: {result.friend}</p>
-                <p className="mb-2">Rating: {result.rating} / 5</p>
-                <p className="text-sm">{result.comment}</p>
+                <p className="mb-2">Friend: {result.genre1}</p>
+                <p className="mb-2">Rating: {result.genre2}</p>
+                <p className="text-sm">{result.year}</p>
               </div>
             )}
           </div>
