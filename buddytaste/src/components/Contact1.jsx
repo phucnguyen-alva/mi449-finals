@@ -103,12 +103,22 @@ export function Contact1() {
                 No review found for that friend and movie.
               </p>
             ) : (
-              <div className="text-center">
-                <h3 className="text-2xl font-bold mb-4">{result.movie}</h3>
-                <p className="mb-2">Friend: {result.genre1}</p>
-                <p className="mb-2">Rating: {result.genre2}</p>
-                <p className="text-sm">{result.year}</p>
-              </div>
+
+              result.users.map((user) => (
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold mb-4">{user.name}</h3>
+                  {
+                    user.watched ? (
+                      <>
+                        <p className="mb-2">Review: {user.review}</p>
+                        <p className="mb-2">Rating: {user.rating}</p>
+                      </>
+                    ) : (
+                      <p className="mb-2">User did not watch movie</p>
+                    )
+                  }
+                </div>
+              ))
             )}
           </div>
         )}
