@@ -10,18 +10,54 @@ export function Contact1() {
   });
 
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false); // 🚀 Add loading state
+  const [loading, setLoading] = useState(false);
+
+  const [friendSuggestions, setFriendSuggestions] = useState([]);
+  const [movieSuggestions, setMovieSuggestions] = useState([]);
+
+  // Sample data for suggestions
+  const sampleFriends = [
+    "ratgaming","gwenlikesfilm", "timtamtitus", "elisavetkei", "cinemawithcathy", "justinlovescinema",
+    "kevinofthewoods", "filmjunkiejules", "sofiescreens", "movieman_tom", "laurenslens",
+    "reelchris", "popcornnights", "cinemadreamz", "aniyaflicks", "litlenslucy"
+  ];
+  
+  const sampleMovies = [
+    "Sonic the Hedgehog", "A Minecraft Movie", "Dead Poets Society", "Everything Everywhere All At Once",
+    "Lady Bird", "The Social Network", "La La Land", "Whiplash", "Dune",
+    "The Grand Budapest Hotel", "Spider-Man: Into the Spider-Verse", "Aftersun",
+    "The Batman (2022)", "Barbie (2023)", "Oppenheimer", "Her", "Arrival",
+    "Parasite", "Portrait of a Lady on Fire", "Moonlight"
+  ];
+  
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+
+    // Autocomplete logic
+    if (name === "friend") {
+      const filtered = sampleFriends.filter(friend =>
+        friend.toLowerCase().includes(value.toLowerCase())
+      );
+      setFriendSuggestions(filtered);
+    }
+
+    if (name === "movie") {
+      const filtered = sampleMovies.filter(movie =>
+        movie.toLowerCase().includes(value.toLowerCase())
+      );
+      setMovieSuggestions(filtered);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // 🚀 Start loading
+    setLoading(true);
 
     try {
       const data = await getData(formData.movie, formData.friend.toLowerCase());
@@ -35,8 +71,18 @@ export function Contact1() {
       console.error("Error fetching data:", error);
       setResult({ notFound: true });
     } finally {
-      setLoading(false); // 🚀 Stop loading after data comes back
+      setLoading(false);
     }
+  };
+
+  const handleFriendSuggestionClick = (suggestion) => {
+    setFormData((prev) => ({ ...prev, friend: suggestion }));
+    setFriendSuggestions([]);
+  };
+
+  const handleMovieSuggestionClick = (suggestion) => {
+    setFormData((prev) => ({ ...prev, movie: suggestion }));
+    setMovieSuggestions([]);
   };
 
   return (
@@ -54,10 +100,9 @@ export function Contact1() {
         {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-8 mb-12">
           {/* Movie Selector */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
             <label htmlFor="movie" className="text-sm font-bold">
               Select Movie
-              <p className="text-xs">(Add the year it came out if there are movies with the same name)</p>
             </label>
             <input
               id="movie"
@@ -69,10 +114,24 @@ export function Contact1() {
               required
               className="border-4 border-black p-3 font-mono text-sm bg-white focus:outline-none"
             />
+            {/* Movie Suggestions */}
+            {movieSuggestions.length > 0 && (
+              <ul className="absolute top-full left-0 right-0 bg-white border-2 border-black z-10 text-black text-sm shadow-md animate-fadeIn">
+                {movieSuggestions.map((suggestion, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => handleMovieSuggestionClick(suggestion)}
+                    className="p-2 hover:bg-black hover:text-white cursor-pointer transition-all"
+                  >
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
-          {/* Friend Name */}
-          <div className="flex flex-col gap-2">
+          {/* Friend Selector */}
+          <div className="flex flex-col gap-2 relative">
             <label htmlFor="friend" className="text-sm font-bold">
               Friends Names
               <p className="text-xs">(Seperate with commas or spaces)</p>
@@ -87,6 +146,20 @@ export function Contact1() {
               required
               className="border-4 border-black p-3 font-mono text-sm bg-white focus:outline-none"
             />
+            {/* Friend Suggestions */}
+            {friendSuggestions.length > 0 && (
+              <ul className="absolute top-full left-0 right-0 bg-white border-2 border-black z-10 text-black text-sm shadow-md animate-fadeIn">
+                {friendSuggestions.map((suggestion, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => handleFriendSuggestionClick(suggestion)}
+                    className="p-2 hover:bg-black hover:text-white cursor-pointer transition-all"
+                  >
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Submit Button */}
