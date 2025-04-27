@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import { getData } from "../lambdaAPI";
 
-
-
 export function Contact1() {
   const [formData, setFormData] = useState({
     movie: "",
@@ -12,6 +10,7 @@ export function Contact1() {
   });
 
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false); // 🚀 Add loading state
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -20,20 +19,24 @@ export function Contact1() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true); // 🚀 Start loading
 
-    const fetchData = async () => {
-          const data = await getData(formData.movie, formData.friend.toLowerCase());
-          if (data) {
-            console.log(data);
-            setResult(data);
-          }
-          else{
-            setResult({notFound: true });
-          }
-        };
-    
-      fetchData();
+    try {
+      const data = await getData(formData.movie, formData.friend.toLowerCase());
+      if (data) {
+        console.log(data);
+        setResult(data);
+      } else {
+        setResult({ notFound: true });
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setResult({ notFound: true });
+    } finally {
+      setLoading(false); // 🚀 Stop loading after data comes back
+    }
   };
 
   return (
@@ -53,18 +56,19 @@ export function Contact1() {
           {/* Movie Selector */}
           <div className="flex flex-col gap-2">
             <label htmlFor="movie" className="text-sm font-bold">
-              Select Movie 
-              <p>(Add the year it came out if there are movies with the same name)</p>
+              Select Movie
+              <p className="text-xs">(Add the year it came out if there are movies with the same name)</p>
             </label>
-           <input 
+            <input
               id="movie"
               name="movie"
               type="text"
+              value={formData.movie}
               onChange={handleChange}
               placeholder="Enter a movie name..."
               required
-              className="border-4 border-black p-3 font-mono text-sm bg-white focus:outline-none">
-           </input>
+              className="border-4 border-black p-3 font-mono text-sm bg-white focus:outline-none"
+            />
           </div>
 
           {/* Friend Name */}
@@ -88,35 +92,45 @@ export function Contact1() {
           <div className="text-center">
             <button
               type="submit"
-              className="px-8 py-3 border-2 border-black bg-white text-blue-600 font-bold text-sm hover:bg-blue-600 hover:text-white transition-all uppercase"
+              className="px-8 py-3 border-2 border-black bg-white text-blue-600 font-bold text-sm hover:bg-blue-600 hover:text-white transition-all uppercase disabled:opacity-50"
+              disabled={loading}
             >
-              Find Review
+              {loading ? "Searching..." : "Find Review"}
             </button>
           </div>
         </form>
 
+        {/* Loading Spinner */}
+        {loading && (
+          <div className="flex justify-center mb-8">
+            <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+          </div>
+        )}
+
         {/* Result Display */}
-        {result && (
+        {result && !loading && (
           <div className="border-4 border-black p-6">
             {result.notFound ? (
-              <p className="text-red-600 font-bold text-center">
-                No review found for that friend and movie.
-              </p>
+              <div className="text-center">
+                <p className="text-red-600 font-bold text-xl mb-4">
+                  No review found for that friend and movie.
+                </p>
+                <p className="text-sm mb-6 text-gray-600">
+                  Maybe check the spelling or try a different combination!
+                </p>
+              </div>
             ) : (
-
-              result.users.map((user) => (
-                <div className="text-center">
+              result.users.map((user, idx) => (
+                <div key={idx} className="text-center">
                   <h3 className="text-2xl font-bold mb-4">{user.name}</h3>
-                  {
-                    user.watched ? (
-                      <>
-                        <p className="mb-2">Review: {user.review}</p>
-                        <p className="mb-2">Rating: {user.rating}</p>
-                      </>
-                    ) : (
-                      <p className="mb-2">User did not watch movie</p>
-                    )
-                  }
+                  {user.watched ? (
+                    <>
+                      <p className="mb-2">Review: {user.review}</p>
+                      <p className="mb-2">Rating: {user.rating}</p>
+                    </>
+                  ) : (
+                    <p className="mb-2">User did not watch this movie.</p>
+                  )}
                 </div>
               ))
             )}
